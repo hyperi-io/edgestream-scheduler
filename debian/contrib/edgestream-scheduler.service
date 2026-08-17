@@ -1,0 +1,22 @@
+[Unit]
+Description=EdgeStream Scheduler
+After=network.target
+
+[Service]
+Type=simple
+RuntimeDirectory=edgestream-scheduler
+RuntimeDirectoryMode=0755
+
+ExecStart=/usr/bin/edgestream-scheduler --config=/etc/edgestream-scheduler/config.yml
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ReadWritePaths=/etc/edgestream-scheduler/ /run/edgestream-scheduler/ /var/log/
+
+[Install]
+WantedBy=multi-user.target

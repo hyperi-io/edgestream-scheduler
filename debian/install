@@ -1,0 +1,2 @@
+debian/contrib/edgestream-scheduler.service lib/systemd/system/
+debian/contrib/edgestream-scheduler  etc/logrotate.d/

@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+%:
+	dh $@
+
+override_dh_usrlocal:
+	# no-op
+
+override_dh_auto_build:
+	# Ensure this line below starts with a TAB
+	(cd src && go build -trimpath -ldflags="-s -w" -o edgestream-scheduler main.go)
+
+override_dh_auto_install:
+	# Ensure all lines below start with a TAB
+	install -d -m 0755 debian/edgestream-scheduler/usr/bin
+	install -d -m 0755 debian/edgestream-scheduler/etc/edgestream-scheduler/config.d
+	install -d -m 0755 debian/edgestream-scheduler/lib/systemd/system
+
+	install -m 0755 src/edgestream-scheduler \
+		debian/edgestream-scheduler/usr/bin/edgestream-scheduler
+
+	install -m 0644 debian/contrib/edgestream-scheduler.service \
+		debian/edgestream-scheduler/lib/systemd/system/edgestream-scheduler.service
+
+	install -m 0644 debian/contrib/config.yml \
+		debian/edgestream-scheduler/etc/edgestream-scheduler/config.yml
+
+override_dh_dwz:
+	:

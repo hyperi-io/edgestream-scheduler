@@ -1,0 +1,27 @@
+include_dir: /etc/edgestream-scheduler/config.d/*.yml
+
+logging:
+  log_file: /var/log/edgestream-scheduler.log
+  max_size: 100     # MaxSize is the maximum size in megabytes of the log file before it gets rotated. It defaults to 100 megabytes.
+  max_age:  728     # MaxAge is the maximum number of days to retain old log files based on the timestamp encoded in their filename. Note that a day is defined as 24 hours and may not exactly correspond to calendar days due to daylight savings, leap seconds, etc. The default is not to remove old log files based on age.
+  max_backups: 5    # MaxBackups is the maximum number of old log files to retain. The default is to retain all old log files (though MaxAge may still cause them to get deleted.)
+  local_time: false # LocalTime determines if the time used for formatting the timestamps in backup files is the computer's local time. The default is to use UTC time.
+  compress: true    # Compress determines if the rotated log files should be compressed using gzip. The default is not to perform compression.
+  log_level: debug
+
+pid_file: /run/edgestream-scheduler/edgestream-scheduler.pid
+
+default_timeout: "10m" # Kill scheduled processes after this period expires if not finialized
+
+commands:
+  - interval: "60s"
+    path: "/usr/bin/echo"
+    args: ["Running every 60 seconds"]
+
+  - interval: "1h5m"
+    path: "/usr/bin/echo"
+    args: ["Running every 1 hour and 5 minutes"]
+
+  - interval: "3d2h10m"
+    path: "/usr/bin/echo"
+    args: ["Running every 3 days, 2 hours, and 10 minutes"]

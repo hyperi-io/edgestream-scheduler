@@ -1,0 +1,17 @@
+Source: edgestream-scheduler
+Section: admin
+Priority: optional
+Standards-Version: 4.6.2
+Maintainer: Hyperi Support <support@hyperi.io>
+Build-Depends:
+ debhelper-compat (= 13),
+ golang-go
+Homepage: https://github.com/hyperi-io/edgestream-scheduler
+
+Package: edgestream-scheduler
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: EdgeStream command scheduler is used to schedule timed events
+ similar to cron for EdgeStrewam Hub
+ .
+ Licensed under the Functional Source License 1.1 (ALv2 Future License).

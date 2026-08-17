@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # cooldown matches the house 7-day dependency soak: an update waits until its
+  # release is a week old, so a poisoned or broken publish is caught upstream
+  # before it reaches a PR here. Semgrep's dependabot-missing-cooldown rule
+  # blocks the build without it.
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      go-dependencies:
+        patterns:
+          - "*"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7

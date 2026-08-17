@@ -1,0 +1,15 @@
+linters:
+  enable:
+    - govet        # Reports common mistakes
+    - errcheck     # Checks for unchecked errors
+    - staticcheck  # Advanced static analysis
+    - unused       # Finds unused code
+    - gosimple     # Simplifies code
+    - misspell     # Catches typos
+    - prealloc     # Performance: suggests slice preallocation
+    - bodyclose    # Ensures HTTP response bodies are closed
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
