@@ -33,11 +33,11 @@ jobs:
 
       # --- Setup the environment
       - name: Setup Build Environment
-        uses:  hyperi-io/edgestream-shared-workflows/setup-deps@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses:  hyperi-io/edgestream-shared-workflows/setup-deps@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
 
       # --- Check if the CI is healthy
       - name: Lint Workflow
-        uses: hyperi-io/edgestream-shared-workflows/workflow-lint@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/workflow-lint@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
 
       - name: Dependency Review
         if: github.event_name == 'pull_request'
@@ -63,30 +63,30 @@ jobs:
 
       # --- Security Scans (Pre-Build) ---
       - name: Security - Gitleaks
-        uses: hyperi-io/edgestream-shared-workflows/gitleaks-scan@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/gitleaks-scan@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
         env:
           GIT_READY: "true"
           GIT_DIR: ${{ github.workspace }}/.git
           GIT_WORK_TREE: ${{ github.workspace }}
 
       - name: Security - Semgrep SAST
-        uses: hyperi-io/edgestream-shared-workflows/code-scan@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/code-scan@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
 
       - name: Prepare Build Workspace
-        uses: hyperi-io/edgestream-shared-workflows/prepare-env@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/prepare-env@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
 
       - name: Build Debian package
-        uses: hyperi-io/edgestream-shared-workflows/build-deb@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/build-deb@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
 
       # --- Security Scans (Post-Build) ---
       - name: Security - Trivy (Package Scan)
-        uses: hyperi-io/edgestream-shared-workflows/trivy-scan@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/trivy-scan@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
         with:
           scan-path: './dist'
           
       - name: Deploy Package
         if: success()
-        uses: hyperi-io/edgestream-shared-workflows/deploy-deb@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/deploy-deb@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
         with:
           ssh-key: ${{ secrets.EDGESTREAM_REPO_SSH_KEY }}
           known-hosts: ${{ secrets.EDGESTREAM_KNOWN_HOSTS }}
@@ -97,7 +97,7 @@ jobs:
 
       - name: Sync to R2
         if: success()
-        uses: hyperi-io/edgestream-shared-workflows/sync-repo-r2@ba46a73a31f7f393688f21591ecc2aae62425dd5
+        uses: hyperi-io/edgestream-shared-workflows/sync-repo-r2@fa6f9ffa084d2534d3c4cb24a1dbb7363d4d4403
         with:
           ssh-key: ${{ secrets.EDGESTREAM_REPO_SSH_KEY }}
           known-hosts: ${{ secrets.EDGESTREAM_KNOWN_HOSTS }}
